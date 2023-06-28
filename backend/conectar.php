@@ -4,15 +4,15 @@ class Conectar {
 
     public function Conexion(){
         try{
-            $conectar=$this->dbCnx=new PDO("mysql:local=localhost;dbname=alquilartemis2","root","");
+            $conectar=$this->dbCnx=new PDO("mysql:host=localhost;dbname=alquilartemis2","root","");
             return $conectar;
         }catch(Exception $th){
-            return $th->getMessage();
+            echo $th->getMessage();
         }
     }
     public function set_name()
     {
-        return $this->dbCnx->query("SET NAMES 'utf8' ");
+        return $this->dbCnx->query("SET NAMES 'utf8'");
     }  
 }
 
