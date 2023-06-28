@@ -23,9 +23,10 @@ switch ($_GET['op']) {
 
     case 'delet':
         $dato=$alquilar->delect($_GET['id']);
-
         echo json_encode("datos eliminados");
-
+        break;
+    case 'update':
+        $dato=$alquilar->update($_GET['id'],$body['nombre_construtora'],$body['nit_constructora'],$body['nombre_representante'],$body['email_contacto'],$body['telefono_contacto'])   
     default:
     
         break;

@@ -1,0 +1,62 @@
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+
+START TRANSACTION;
+
+SET time_zone="+00:00";
+
+
+DELIMITER $$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `calculoEdad` (IN `edadInicial` INT, IN `edadFinal` INT) BEGIN 
+SELECT Apellido, Nombre, year(curdate())-year(fechaNacimiento) AS edad FROM empleados
+GROUP BY EmpleadoID
+HAVING(edad>edaInicial AND edad<edadFinal);
+
+END$$
+DELIMITER;
+
+CREATE TABLE `categorias`(
+    `CategoriaID` INT (11) NOT NULL,
+    `CategoriaNombre` VARCHAR(15) NOT NULL,
+    `Descripcion` longtext DEFAULT NULL,
+    `imagen` TEXT DEFAULT NULL
+)ENGINE = InnoDB DEFAULT CHARSET = utf8;
+
+INSERT INTO `categorias`(`CategoriaID`,`CategoriaNombre`,`Descripcion`,`Imagen`) VALUES (1,'beverages', ' soft drinks, coffes, teas beers and ales ', 'img/beverages.jpg'),
+(2,'Condiments', 'Sweet and savory sauces, relishes, spreads, and seasonings', 'img/Condiments.jpg'),
+(3,'Confection', 'Dessert, Candies, and Sweet breads', 'img/Confections.jpg');
+
+CREATE TABLE clientes (
+    ClienteID char(5) NOT NULL,
+    compania VARCHAR(40) NOT NULL,
+    contacto VARCHAR(30) DEFAULT NULL,
+    titulo VARCHAR(30) DEFAULT NULL,
+    direccion VARCHAR(60) DEFAULT NULL,
+    ciudad VARCHAR(15) DEFAULT NULL,
+    regiones VARCHAR(15) DEFAULT NULL,
+    codigoPostal VARCHAR(10) DEFAULT NULL,
+    pais VARCHAR(15) DEFAULT NULL,
+    telefono VARCHAR(24) DEFAULT NULL,
+    fax VARCHAR(24) DEFAULT NULL
+)ENGINE =InnoDB DEFAULT CHARSET =utf8;
+
+INSERT INTO clientes (ClienteID, compania, contacto, titulo, direccion, ciudad, regiones, codigoPostal, pais, telefono, fax) value 
+('ALFKI', 'Alfreds Futterkiste', 'Maria Anders', 'Sales Representative', 'Obere Str. 57', 'Berlin', '', '12209', 'Germany', '030-0074321', '030-0076545'),
+('ANATR', 'Ana Trujillo Emparedados y helados', 'Ana Trujillo', 'Owner', 'Avda. de la Constituci?n 2222', 'M?xico D.F.', '', '05021', 'Mexico', '(5) 555-4729', '(5) 555-3745'),
+('ANTON', 'Antonio Moreno Taquer?a', 'Antonio Moreno', 'Owner', 'Mataderos  2312', 'M?xico D.F.', '', '05023', 'Mexico', '(5) 555-3932', '');
+
+
+CREATE TABLE cleintesDemo (
+    clienteId char(5) NOT NULL,
+    tipoCliente char(10) NOT NULL
+)ENGINE= InnoDB DEFAULT CHARSET = utf8;
+
+CREATE TABLE clientesdemografia(
+    tipoClienteId char(10) NOT NULL,
+    tipoClienteDesc longtext DEFAULT NULL
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+SELECT empleados.nombre, departamentos.nombre AS departamento
+FROM empleados
+INNER JOIN departamentos ON empleados.departamento_id = departamentos.departamento_id;
